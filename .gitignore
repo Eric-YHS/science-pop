@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+*.pyo
+.env
+.venv/
+venv/
+storage/papers/*
+storage/content/*
+!storage/papers/.gitkeep
+!storage/content/.gitkeep
+*.egg-info/
+dist/
+build/
+.mypy_cache/
+.pytest_cache/
+.idea/
+.vscode/
