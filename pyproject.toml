@@ -1,0 +1,24 @@
+# Project tooling configuration.
+#
+# Runtime dependencies stay in ``requirements.txt``; this file only holds tool
+# configuration (ruff, pytest) so the repository can be linted and tested
+# without packaging the application.
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.ruff.lint]
+# Ruff's default rule set plus import ordering.
+select = ["E4", "E7", "E9", "F", "I", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+# Alembic's template and migration env import models only for side effects.
+"migrations/env.py" = ["F401", "E402"]

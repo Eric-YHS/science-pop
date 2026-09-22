@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -94,6 +94,6 @@ class CrawlScheduler:
             crawl_task.status = "failed"
             crawl_task.error_log = str(e)
 
-        crawl_task.completed_at = datetime.now(timezone.utc)
+        crawl_task.completed_at = datetime.now(UTC)
         await self.db.flush()
         return crawl_task

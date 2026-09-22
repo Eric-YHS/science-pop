@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import Optional
 
 from pydantic import BaseModel
 
@@ -9,7 +8,7 @@ class ContentResponse(BaseModel):
     paper_id: int
     workflow_type: str
     business_line: str
-    article_text: Optional[str] = None
+    article_text: str | None = None
     image_paths: list[str] = []
     status: str
     created_at: datetime

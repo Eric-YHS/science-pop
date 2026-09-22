@@ -1,28 +1,27 @@
 from datetime import datetime
-from typing import Optional
 
 from pydantic import BaseModel
 
 
 class PaperBase(BaseModel):
     title: str
-    authors: Optional[str] = None
-    abstract: Optional[str] = None
-    source_url: Optional[str] = None
-    doi: Optional[str] = None
+    authors: str | None = None
+    abstract: str | None = None
+    source_url: str | None = None
+    doi: str | None = None
 
 
 class PaperCreate(PaperBase):
-    discipline_id: Optional[int] = None
-    file_type: Optional[str] = "pdf"
+    discipline_id: int | None = None
+    file_type: str | None = "pdf"
 
 
 class PaperResponse(PaperBase):
     id: int
-    discipline_id: Optional[int] = None
-    file_path: Optional[str] = None
-    file_type: Optional[str] = None
-    metadata_text: Optional[str] = None
+    discipline_id: int | None = None
+    file_path: str | None = None
+    file_type: str | None = None
+    metadata_text: str | None = None
     status: str
     created_at: datetime
 
@@ -32,3 +31,14 @@ class PaperResponse(PaperBase):
 class PaperListResponse(BaseModel):
     total: int
     items: list[PaperResponse]
+
+
+class DisciplineResponse(BaseModel):
+    """A discipline and the paper sources configured for it."""
+
+    id: int
+    name: str
+    slug: str
+    sources: list[dict] = []
+
+    model_config = {"from_attributes": True}

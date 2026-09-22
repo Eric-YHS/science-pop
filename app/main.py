@@ -6,7 +6,6 @@ from fastapi import FastAPI
 from sqlalchemy import select
 
 from app.api.router import api_router
-from app.config import settings
 from app.database import async_session, engine
 from app.models import Base, Discipline
 from app.utils.disciplines import DISCIPLINES

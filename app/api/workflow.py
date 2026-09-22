@@ -3,7 +3,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_db
-from app.models import Paper, Content
+from app.models import Content, Paper
 from app.schemas.workflow import WorkflowConvertRequest, WorkflowStatusResponse
 from app.services.workflow import CozeWorkflowClient
 

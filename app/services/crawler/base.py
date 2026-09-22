@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models import Paper
@@ -61,5 +62,3 @@ class BaseCrawler(ABC):
         await self.db.flush()
         return paper
 
-
-from sqlalchemy import select  # noqa: E402

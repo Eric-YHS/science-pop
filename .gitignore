@@ -15,3 +15,7 @@ build/
 .pytest_cache/
 .idea/
 .vscode/
+
+.ruff_cache/
+.coverage
+htmlcov/

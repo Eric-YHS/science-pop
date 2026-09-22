@@ -1,12 +1,16 @@
 import aiofiles
-from fastapi import APIRouter, Depends, UploadFile, File, HTTPException, Query
+from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.database import get_db
-from app.models import Paper, Discipline
-from app.schemas.paper import PaperResponse, PaperListResponse
 from app.config import settings
+from app.database import get_db
+from app.models import Discipline, Paper
+from app.schemas.paper import (
+    DisciplineResponse,
+    PaperListResponse,
+    PaperResponse,
+)
 
 router = APIRouter(prefix="/papers", tags=["papers"])
 
@@ -41,11 +45,11 @@ async def list_papers(
     return PaperListResponse(total=total, items=items)
 
 
-@router.get("/disciplines", response_model=list)
+@router.get("/disciplines", response_model=list[DisciplineResponse])
 async def list_disciplines(db: AsyncSession = Depends(get_db)):
     results = (await db.execute(select(Discipline).order_by(Discipline.id))).scalars().all()
     return [
-        {"id": d.id, "name": d.name, "slug": d.slug, "sources": d.sources}
+        DisciplineResponse(id=d.id, name=d.name, slug=d.slug, sources=d.sources or [])
         for d in results
     ]
 
@@ -73,7 +77,8 @@ async def upload_paper(
         if not disc:
             raise HTTPException(400, "Invalid discipline_id")
 
-    file_type = file.filename.rsplit(".", 1)[-1].lower() if "." in file.filename else "txt"
+    filename = file.filename or ""
+    file_type = filename.rsplit(".", 1)[-1].lower() if "." in filename else "txt"
     if file_type not in ("pdf", "txt"):
         raise HTTPException(400, "Only pdf and txt files are supported")
 

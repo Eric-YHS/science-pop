@@ -1,4 +1,3 @@
-from typing import Optional
 
 from pydantic import BaseModel
 
@@ -15,17 +14,17 @@ class WorkflowStatusResponse(BaseModel):
 
 
 class CrawlTriggerRequest(BaseModel):
-    source_name: Optional[str] = None
-    discipline_slug: Optional[str] = None
+    source_name: str | None = None
+    discipline_slug: str | None = None
 
 
 class CrawlTaskResponse(BaseModel):
     id: int
     source_name: str
-    discipline_id: Optional[int] = None
+    discipline_id: int | None = None
     status: str
-    started_at: Optional[str] = None
-    completed_at: Optional[str] = None
+    started_at: str | None = None
+    completed_at: str | None = None
     papers_found: int
     papers_saved: int
 

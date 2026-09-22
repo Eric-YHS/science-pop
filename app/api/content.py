@@ -3,8 +3,8 @@ from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_db
-from app.models import Content, Paper
-from app.schemas.content import ContentResponse, ContentListResponse
+from app.models import Content
+from app.schemas.content import ContentListResponse, ContentResponse
 
 router = APIRouter(prefix="/contents", tags=["contents"])
 
